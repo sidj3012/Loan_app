@@ -1,7 +1,7 @@
-import mongoose,{InferSchemaType, model} from "mongoose";
+import mongoose, { InferSchemaType, model } from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    username:{
+    username: {
         type: String,
         required: true,
         unique: true,
@@ -15,7 +15,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-})
+    // Add correct field for 'role'
+    role: {
+        type: String,
+        enum: ['user', 'verifier', 'admin'],
+        default: 'user',
+    }
+});
 
 type User = InferSchemaType<typeof userSchema>;
 export default model<User>("User", userSchema);

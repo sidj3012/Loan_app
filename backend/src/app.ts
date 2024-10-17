@@ -2,9 +2,20 @@ import "dotenv/config";
 import express from 'express';
 import loansRoutes from "./routes/loans";
 import userRoutes from "./routes/users";
+import session from "express-session";
 
 const app = express();
 app.use(express.json());
+app.use(session({
+    secret: "sidloan",
+    resave: false,
+    saveUninitialized: false,
+    cookie:{
+        
+    },
+    rolling: true,
+    
+}));
 
 app.use("/api/users", userRoutes);
 app.use("/api/loans", loansRoutes);
